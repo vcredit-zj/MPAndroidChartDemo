@@ -32,6 +32,7 @@ import com.xxmassdeveloper.mpchartexample.LineChartActivity1;
 import com.xxmassdeveloper.mpchartexample.LineChartActivity2;
 import com.xxmassdeveloper.mpchartexample.LineChartActivityColored;
 import com.xxmassdeveloper.mpchartexample.LineChartTime;
+import com.xxmassdeveloper.mpchartexample.LinePieChartActivity;
 import com.xxmassdeveloper.mpchartexample.ListViewBarChartActivity;
 import com.xxmassdeveloper.mpchartexample.ListViewMultiChartActivity;
 import com.xxmassdeveloper.mpchartexample.MultiLineChartActivity;
@@ -51,6 +52,7 @@ import com.xxmassdeveloper.mpchartexample.realm.RealmMainActivity;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity implements OnItemClickListener {
+    MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,8 +149,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
         objects.add(new ContentItem(
                 "Half PieChart",
                 "This demonstrates how to create a 180 degree PieChart."));
+        objects.add(new ContentItem(
+                "Line & Pie Chart",
+                "折线图和饼图", LinePieChartActivity.class));
 
-        MyAdapter adapter = new MyAdapter(this, objects);
+        adapter = new MyAdapter(this, objects);
 
         ListView lv = (ListView) findViewById(R.id.listView1);
         lv.setAdapter(adapter);
@@ -289,6 +294,12 @@ public class MainActivity extends Activity implements OnItemClickListener {
             case 31:
                 i = new Intent(this, HalfPieChartActivity.class);
                 startActivity(i);
+                break;
+            default: {
+                ContentItem item = adapter.getItem(pos);
+                i = new Intent(this, item.demoBase);
+                startActivity(i);
+            }
                 break;
 
         }
